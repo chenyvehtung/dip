@@ -34,3 +34,29 @@ $$
 ## 2 Programming Tasks
 
 ### 2.2 Histogram Equalization
+
+* **2.2.1 Compute and display its histogram.**
+
+![](src/images/72.png)
+
+![](src/images/input_hist.png)
+
+* **2.2.2 Equalize its histogram.**
+
+![](src/images/equalize_72.png)
+
+![](src/images/output_hist.png)
+
+* **2.2.3 Analyze your histogram-equalized result**
+
+The histogram equalized result is a little bit clear visually. Some details are exposed expecially on the top of the mountain shown in the image. **However**, the result is not that better as I have imaged, and the result seems **unnatural** to some extend.
+
+* **2.2.4 Detailedly discuss how you implement the histogram equalization operation.**
+
+The "equalize hist" function is implemented by the following three step:
+
+1. Count up the number of per gray level value, store than in a list, where index is gray level value and the value is the number.
+2. Calculate cummulative distribution, walk through the list get in step 1, for every position, set the value as the sum of all the value before it, and then divide it by the total pixel number of the image, and store it in another list.
+3. Map the original gray level value to the list value got in step 2, and multiply it by 255 according to the way python displays image.
+
+The histogram is displayed by using **bar chart**, where x is set as `range(256)` and y is set as the list got from step 1 shown above. And the bar chart can be shown by using `matplotlib.pyplot.bar` in python.
