@@ -22,14 +22,24 @@ That means a second pass of histogram equalization would yield the same result a
 
 ### 1.2 Spatial Filtering
 
-Under constructing...
+* **1.2.1 Convolve the gray image with the given filter with zero-padding, and show your result**
 $$
 \begin{bmatrix}
-    x_{11}       & x_{12} & x_{13} & \dots & x_{1n} \\
-    x_{21}       & x_{22} & x_{23} & \dots & x_{2n} \\
-    x_{d1}       & x_{d2} & x_{d3} & \dots & x_{dn}
+    177  & 420  & 279  & 271 \\
+    74   & 72   & 90   & -52 \\
+    -61  & -131 & -2   & -19 \\
+    -172 & -199 & -215 & -60
 \end{bmatrix}
 $$
+
+* **1.2.2 Discuss the meanings of positive values and negative values in your convolution result
+respectively**
+
+Positive values mean that the grey value on the top of the center pixel is smaller than the bottom ones, while negative means the opposite way.
+
+* **1.2.3 Describe some applications of the given filter based on your own knowledge.**
+
+It can be used to find the edge of the image in the horizontal direction
 
 ## 2 Programming Tasks
 
@@ -60,3 +70,28 @@ The "equalize hist" function is implemented by the following three step:
 3. Map the original gray level value to the list value got in step 2, and multiply it by 255 according to the way python displays image.
 
 The histogram is displayed by using **bar chart**, where x is set as `range(256)` and y is set as the list got from step 1 shown above. And the bar chart can be shown by using `matplotlib.pyplot.bar` in python.
+
+### 2.3 Spatial Filtering
+
+* **Smooth image with average filter**
+
+![](src/images/avg_filter_3_3_72.png)
+
+![](src/images/avg_filter_7_7_72.png)
+
+![](src/images/avg_filter_11_11_72.png)
+
+* **Sharpen image with laplacian filter**
+
+![](src/images/sharpen_72.png)
+
+* **High-boost filtering**
+
+k = 1.3
+
+![](src/images/hboost_1.3_72.png)
+
+* **Discussion about implement**
+
+The filter operation itself is easy to implement, just by simply rotate the filter to 180 degree, and then pad the image with 0 with the length of `filter_len / 2`, and then apply filter to every path of the image. That's it.<br>
+However, to display the image in the proper way really takes a lot of time. Until now I still cannot not find the right way to do linear stretch. 

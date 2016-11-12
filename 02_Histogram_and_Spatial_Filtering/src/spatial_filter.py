@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 import numpy as np
 from PIL import Image
-from hist_equa import equalize_hist
 
 
 def filter2d(input_img, filter):
