@@ -59,9 +59,17 @@ scale_500_200_72.png
 
 I start by calculate the (old_x, old_y) as (new_x/x_scale, new_y/y_scale), where x_scale and y_scale means new_height/old_height and new_width/old_width respectively. That means I try to find the point of the new image from the old one. So if old_x or old_y is an integer, then just apply it to the new image.<br>
 But if neither old_x nor old_y is an integer, then scaling operation is implemented by using **bilinear interpolation**, which goes like following:<br>
-Suppose that we want to find the value of the unknown function f at the point (x, y). It is assumed that we know the value of f at the four near points Q11 = (x1, y1), Q12 = (x1, y2), Q21 = (x2, y1), and Q22 = (x2, y2).<br>
-We first do linear interpolation in the x-direction. This yields<br>
-![src/images/alg_1.png](src/images/alg_1.png)<br>
+Suppose that we want to find the value of the unknown function f at the point (x, y). It is assumed that we know the value of f at the four near points $Q_{11} = (x_1, y_1)$, $Q_{12} = (x_1, y_2)$, $Q_{21} = (x_2, y_1)$, and $Q_{22} = (x_2, y_2)$.<br>
+We first do linear interpolation in the x-direction in row $y_1$. This yields<br>
+$$
+f(x, y_1)=f(Q_{11})+ \frac{x-x_1}{x_2-x_1}(f(Q_{21})-f(Q_{11}))\\
+f(x, y_1)=\frac{x_2-x}{x_2-x_1}f(Q_{11})+\frac{x-x_1}{x_2-x_1}f(Q_{21})
+$$
+And so as for $y_2$
+$$
+f(x, y_2)=\frac{x_2-x}{x_2-x_1}f(Q_{12})+\frac{x-x_1}{x_2-x_1}f(Q_{22})
+$$
+
 We proceed by interpolating in the y-direction to obtain the desired estimate:<br>
 ![src/images/alg_2.png](src/images/alg_2.png)<br>
 So for every pixel which not exist in the old image, I find the four near points of it from the old image, and then calcultate the value by using the above formula.<br>
