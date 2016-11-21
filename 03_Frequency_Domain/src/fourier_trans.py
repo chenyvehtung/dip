@@ -21,9 +21,9 @@ def dft2d(input_img, flags):
     #                                                       (float(u * x) / M +
     #                                                        float(v * y) / N)))
     #         output_img[u, v] = s / (M * N)
+    e_u = []
+    e_v = []
     if flags == "dft":
-        e_u = []
-        e_v = []
         for u in xrange(M):
             e_u.append(np.exp(-1j * 2 * np.pi * u / M * np.arange(M).reshape(M, 1)))
         for v in xrange(N):
@@ -36,7 +36,14 @@ def dft2d(input_img, flags):
 
     # Inverse Discrete Fourier Transform (IDFT)
     else:
-        pass
+        for u in xrange(M):
+            e_u.append(np.exp(1j * 2 * np.pi * u / M * np.arange(M).reshape(M, 1)))
+        for v in xrange(N):
+            e_v.append(np.exp(1j * 2 * np.pi * v / N * np.arange(N).reshape(1, N)))
+
+        for x, y in itertools.product(xrange(M), xrange(N)):
+            e_part = np.multiply(e_u[x], e_v[y])
+            output_img[x, y] = np.sum(np.multiply(input_img, e_part))
 
     return output_img
 
@@ -89,18 +96,19 @@ def stand_img(img):
     scale output image for display purpose and
     return the scaled image
     """
-    min_v = np.amin(img)
-    img -= min_v
-    max_v = np.amax(img)
-    output_img = 255.0 / max_v * img
+    output_img = img.copy()
+    min_v = np.amin(output_img)
+    output_img -= min_v
+    max_v = np.amax(output_img)
+    output_img *= (255.0 / max_v)
     return output_img.astype(np.uint8)
 
 
 def main():
     input_img = np.array(Image.open('images/72.png').convert('L'))
-    # input_img = np.array([0.4, 0.6, 0.8, 0.2]).reshape((2, 2))
-    shifted_img = shift_img(input_img)
 
+    # dft
+    shifted_img = shift_img(input_img)
     dft_path = 'dft.npy'
     if os.path.isfile(dft_path):
         output_img = np.load(dft_path)
@@ -110,11 +118,26 @@ def main():
         end_t = time.time()
         print (end_t - start_t)
         np.save(dft_path, output_img)
-
-    output_img = stand_img(output_img)
-    output_img = Image.fromarray(output_img, 'L')
+    dft_img = Image.fromarray(stand_img(output_img), 'L')
     img_title = "images/dft_72.png"
-    output_img.save(img_title)
+    dft_img.save(img_title)
+    print "Successfully saved ", img_title
+
+    # idft
+    idft_path = 'idft.npy'
+    if os.path.isfile(idft_path):
+        output_img_2 = np.load(idft_path)
+    else:
+        start_t = time.time()
+        output_img_2 = dft2d(output_img, 'idft')
+        end_t = time.time()
+        print (end_t - start_t)
+        np.save(idft_path, output_img_2)
+    # shift back
+    output_img_2 = shift_img(output_img_2)
+    idft_img = Image.fromarray(output_img_2.astype(np.uint8), "L")
+    img_title = "images/idft_72.png"
+    idft_img.save(img_title)
     print "Successfully saved ", img_title
 
 

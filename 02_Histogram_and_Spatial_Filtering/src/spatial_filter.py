@@ -32,10 +32,11 @@ def stand_img(img):
     scale output image for display purpose and
     return the scaled image
     """
-    min_v = np.amin(img)
-    img -= min_v
-    max_v = np.amax(img)
-    output_img = 255.0 / max_v * img
+    output_img = img.copy()
+    min_v = np.amin(output_img)
+    output_img -= min_v
+    max_v = np.amax(output_img)
+    output_img *= (255.0 / max_v)
     return output_img.astype(np.uint8)
 
 
@@ -59,7 +60,7 @@ def main():
     lap_filter = np.array([0, 1, 0, 1, -4, 1, 0, 1, 0]).reshape((3, 3))
     output_img = filter2d(input_img, lap_filter)
     output_img = stand_img(output_img)
-    enhance_img = stand_img(input_img.astype(np.int64) - output_img)
+    enhance_img = stand_img(input_img.astype(np.float64) - output_img)
     enhance_img = Image.fromarray(enhance_img, 'L')
     img_title = "images/sharpen_72.png"
     enhance_img.save(img_title)
@@ -69,7 +70,7 @@ def main():
     blur_img = filter2d(input_img, gen_avg_filter(7))
     g_mask = stand_img(input_img - blur_img)
     k = 1.3
-    g_output = stand_img(input_img.astype(np.int64) + k * g_mask.astype(np.int64))
+    g_output = stand_img(input_img.astype(np.float64) + k * g_mask.astype(np.float64))
     output_img = Image.fromarray(g_output, 'L')
     img_title = "images/hboost_%.1f_72.png" % k
     output_img.save(img_title)
