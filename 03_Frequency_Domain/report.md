@@ -1,5 +1,19 @@
 # HW3: Filtering in the Frequency Domain
 
+## Exercises
+
+### 1.1 Rotation
+
+The complex conjugate simply changes $j$ to $−j$ in the inverse transform, so the image on the right is given by
+$$
+\begin{align}
+\mathscr{F}^{-1}[F^*(u, v)] &= \sum_{x=0}^{M-1}\sum_{y=0}^{N-1}F(u, v)e^{-j2\pi(ux/M+vy/N)} \\
+&=\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}F(u, v)e^{j2\pi(u(-x)/M+v(-y)/N)} \\
+&=f(-x, -y)
+\end{align}
+$$
+which simply mirrors $f(x, y)$ about the origin, thus producing the image on the right.
+
 ## 2 Programming Tasks
 
 ### 2.2 Fourier Transform
