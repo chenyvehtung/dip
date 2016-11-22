@@ -9,7 +9,7 @@ import os.path
 
 def dft2d(input_img, flags):
     M, N = input_img.shape
-    output_img = np.zeros((M, N))
+    output_img = np.zeros((M, N)) + 0.j
 
     # Discrete Fourier Transform implement in vector form of numpy
     # for u in xrange(M):
@@ -105,10 +105,11 @@ def stand_img(img):
 
 
 def main():
-    input_img = np.array(Image.open('images/72.png').convert('L'))
+    input_img = np.array(Image.open('images/72.png').convert('L'), dtype=np.float64)
 
     # dft
     shifted_img = shift_img(input_img)
+    # npy file is used to accelerate the next try.
     dft_path = 'dft.npy'
     if os.path.isfile(dft_path):
         output_img = np.load(dft_path)
@@ -118,7 +119,7 @@ def main():
         end_t = time.time()
         print (end_t - start_t)
         np.save(dft_path, output_img)
-    dft_img = Image.fromarray(stand_img(output_img), 'L')
+    dft_img = Image.fromarray(stand_img(output_img.real), 'L')
     img_title = "images/dft_72.png"
     dft_img.save(img_title)
     print "Successfully saved ", img_title
@@ -133,8 +134,8 @@ def main():
         end_t = time.time()
         print (end_t - start_t)
         np.save(idft_path, output_img_2)
-    # shift back
-    output_img_2 = shift_img(output_img_2)
+    # get the real part and shift back
+    output_img_2 = shift_img(output_img_2.real)
     idft_img = Image.fromarray(output_img_2.astype(np.uint8), "L")
     img_title = "images/idft_72.png"
     idft_img.save(img_title)
