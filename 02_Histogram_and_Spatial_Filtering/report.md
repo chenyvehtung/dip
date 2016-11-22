@@ -87,11 +87,11 @@ The histogram is displayed by using **bar chart**, where x is set as `range(256)
 
 * **High-boost filtering**
 
-k = 1.3
+k = 1.5
 
-![](src/images/hboost_1.3_72.png)
+![](src/images/hboost_1.5_72.png)
 
 * **Discussion about implement**
 
 The filter operation itself is easy to implement, just by simply rotate the filter to 180 degree, and then pad the image with 0 with the length of `filter_len / 2`, and then apply filter to every path of the image. That's it.<br>
-However, to display the image in the proper way really takes a lot of time. Until now I still cannot not find the right way to do linear stretch. 
+However, to display the image in the proper way really takes a lot of time. Until now I still cannot not find the right way to do linear stretch.

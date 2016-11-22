@@ -6,7 +6,7 @@ from PIL import Image
 
 def filter2d(input_img, filter):
     height, width = input_img.shape
-    output_img = np.zeros((height, width))
+    output_img = np.zeros_like(input_img)
     # rotate the filter by 180 degree
     filter_rt = np.rot90(filter, 2)
     # add zero-padding
@@ -45,33 +45,35 @@ def gen_avg_filter(filter_len):
 
 
 def main():
-    input_img = np.array(Image.open('images/72.png').convert('L'))
+    input_img = np.array(Image.open('images/72.png').convert('L'), dtype=np.float64)
 
     # smooth image
     for filter_len in [3, 7, 11]:
         avg_filter = gen_avg_filter(filter_len)
         output_img = filter2d(input_img, avg_filter)
+        output_img = np.clip(output_img, 0, 255)
         output_img = Image.fromarray(output_img.astype(np.uint8), 'L')
         img_title = "images/avg_filter_%d_%d_72.png" % (filter_len, filter_len)
         output_img.save(img_title)
         print "Successfully saved %s" % img_title
 
     # sharpen image using 3 × 3 Laplacian filter
-    lap_filter = np.array([0, 1, 0, 1, -4, 1, 0, 1, 0]).reshape((3, 3))
+    lap_filter = np.array([0, 1, 0, 1, -4, 1, 0, 1, 0], dtype=np.int64).reshape((3, 3))
     output_img = filter2d(input_img, lap_filter)
-    output_img = stand_img(output_img)
-    enhance_img = stand_img(input_img.astype(np.float64) - output_img)
-    enhance_img = Image.fromarray(enhance_img, 'L')
+    cliped_img = np.clip(output_img, 0, 255)
+    # Image.fromarray(stand_img(output_img), 'L').show()
+    enhance_img = np.clip(input_img - cliped_img, 0, 255)
+    enhance_img = Image.fromarray(enhance_img.astype(np.uint8), 'L')
     img_title = "images/sharpen_72.png"
     enhance_img.save(img_title)
     print "Successfully saved %s" % img_title
 
     # high boost filtering
     blur_img = filter2d(input_img, gen_avg_filter(7))
-    g_mask = stand_img(input_img - blur_img)
-    k = 1.3
-    g_output = stand_img(input_img.astype(np.float64) + k * g_mask.astype(np.float64))
-    output_img = Image.fromarray(g_output, 'L')
+    g_mask = np.clip(input_img - blur_img, 0, 255)
+    k = 1.5
+    g_output = np.clip(input_img + k * g_mask, 0, 255)
+    output_img = Image.fromarray(g_output.astype(np.uint8), 'L')
     img_title = "images/hboost_%.1f_72.png" % k
     output_img.save(img_title)
     print "Successfully saved %s" % img_title
