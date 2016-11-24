@@ -31,3 +31,21 @@ After fixing the imaginary calculation error, the final idft image is near the s
 * **Detailedly discuss how you implement DFT / IDFT**
 
 Just follow the formula, but remmeber to try using vector operation and multiprocessing operation, because the calculation really take times for every point would use all the pixel of the input image as input.
+
+### 2.3 Bonus: Fast Fourier Transform
+
+* **Perform FFT**
+
+![](src/images/72resized.png)<br>
+Resize the original image to 256x256
+
+![](src/images/fft_72resized.png)<br>
+
+* **Perform IFFT**
+
+![](src/images/ifft_72resized.png)<br>
+
+* **Detailedly discuss how you implement FFT / IFFT**<br>
+Reference:<br> [https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/](https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/)<br>
+[http://math.stackexchange.com/questions/77118/non-power-of-2-ffts](http://math.stackexchange.com/questions/77118/non-power-of-2-ffts)<br>
+[http://stackoverflow.com/questions/11333454/2d-fft-using-1d-fft](http://stackoverflow.com/questions/11333454/2d-fft-using-1d-fft)
