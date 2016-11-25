@@ -46,6 +46,12 @@ def dft2d(input_img, flags):
     return output_img
 
 
+def ft_spectrum(img):
+    R = img.real
+    I = img.imag
+    return np.sqrt(R ** 2 + I ** 2)
+
+
 def shift_img(input_img):
     """
     Shift image to centralize the Fourier Spectrum
@@ -89,7 +95,7 @@ def main():
     output_img = dft2d(shifted_img, "dft")
     end_t = time.time()
     print "DFT: takes %f seconds" % (end_t - start_t)
-    dft_img = Image.fromarray(stand_img(output_img.real), 'L')
+    dft_img = Image.fromarray(stand_img(np.log(ft_spectrum(output_img))), 'L')
     img_title = "images/dft_72.png"
     dft_img.save(img_title)
     print "Successfully saved ", img_title

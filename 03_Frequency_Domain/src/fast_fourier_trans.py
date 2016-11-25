@@ -78,6 +78,12 @@ def fft2d(input_img, flags):
     return output_img
 
 
+def ft_spectrum(img):
+    R = img.real
+    I = img.imag
+    return np.sqrt(R ** 2 + I ** 2)
+
+
 def shift_img(input_img):
     """
     Shift image to centralize the Fourier Spectrum
@@ -115,7 +121,7 @@ def main():
     print "It takes %f seconds." % (end_t - start_t)
     # print np.allclose(output_img, np.fft.fft2(shifted_img) / (256 * 256))
     # save fast Fourier transformation Spectrum
-    fft_img = Image.fromarray(stand_img(output_img.real), 'L')
+    fft_img = Image.fromarray(stand_img(np.log(ft_spectrum(output_img))), 'L')
     img_title = "images/fft_72resized.png"
     fft_img.save(img_title)
     print "Successfully saved ", img_title
