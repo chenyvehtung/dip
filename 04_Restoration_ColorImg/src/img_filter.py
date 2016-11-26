@@ -5,9 +5,10 @@ from PIL import Image
 
 
 class MyFilter:
-    def __init__(self, filter_type, filter_size):
+    def __init__(self, filter_type, filter_size, contra_q=None):
         self.filter_type = filter_type
         self.filter_size = filter_size
+        self.contra_q = contra_q
 
     def filtering(self, img_block):
         res = None
@@ -16,13 +17,16 @@ class MyFilter:
         elif self.filter_type == "harmonic":
             res = img_block.size / np.sum(1.0 / (img_block + 1e-9))
         elif self.filter_type == "contraharmonic":
-            Q = -1.5
             img_block += 1e-9
-            res = np.sum(img_block ** (Q + 1)) / np.sum(img_block ** Q)
+            res = np.sum(img_block ** (self.contra_q + 1)) / np.sum(img_block ** self.contra_q)
         elif self.filter_type == "geometric":
             res = np.prod(img_block) ** (1.0 / img_block.size)
         elif self.filter_type == "median":
             res = np.median(img_block)
+        elif self.filter_type == "max":
+            res = np.amax(img_block)
+        elif self.filter_type == "min":
+            res = np.amin(img_block)
         else:
             raise ValueError("Filter type is not supported yet.")
         return res
@@ -55,7 +59,10 @@ def main():
     filters_size = [3, 9]
     for filter_type in filters_type:
         for filter_size in filters_size:
-            cur_filter = MyFilter(filter_type, filter_size)
+            if filter_type == "contraharmonic":
+                cur_filter = MyFilter(filter_type, filter_size, -1.5)
+            else:
+                cur_filter = MyFilter(filter_type, filter_size)
             output_img = filter2d(input_img, cur_filter)
             # output_img = np.clip(output_img, 0, 255)
             output_img = Image.fromarray(output_img.astype(np.uint8), 'L')

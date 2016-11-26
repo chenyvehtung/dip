@@ -20,13 +20,13 @@ def add_noise(img, noise_type, params):
         noisy_img += gauss
     elif noise_type == "s&p":
         # salt noise
-        salt_prop = params.get('salt_prop', 0)
-        num_salt = int(np.ceil(salt_prop * img.size))
+        salt_prob = params.get('salt_prob', 0)
+        num_salt = int(np.ceil(salt_prob * img.size))
         coords = get_random_coords(img.shape, num_salt)
         noisy_img[coords] = 255
         # pepper noise
-        pepper_prop = params.get('pepper_prop', 0)
-        num_pepper = int(np.ceil(pepper_prop * img.size))
+        pepper_prob = params.get('pepper_prob', 0)
+        num_pepper = int(np.ceil(pepper_prob * img.size))
         coords = get_random_coords(img.shape, num_pepper)
         noisy_img[coords] = 0
     else:
@@ -59,6 +59,7 @@ def main():
     input_img = np.array(Image.open('images/task_2.png').convert('L'),
                          dtype=np.float64)
 
+    # gaussian noise and denoise
     output_img = add_noise(input_img, "gauss", {'mean': 0, 'sigma': 40})
     save_img(output_img, "images/gauss_0_40_task_2.png")
     output_img = np.clip(output_img, 0, 255)
@@ -68,7 +69,30 @@ def main():
         cur_img = filter2d(output_img, cur_filter)
         save_img(cur_img, "images/gauss_0_40_%s_task_2.png" % filter_type)
 
+    # salt noise and denoise
+    output_img = add_noise(input_img, "s&p", {'salt_prob': 0.2})
+    save_img(output_img, "images/salt_2_task_2.png")
+    output_img = np.clip(output_img, 0, 255)
+    # harmonic mean filter denoise
+    harmonic_filter = MyFilter("harmonic", 5)
+    cur_img = filter2d(output_img, harmonic_filter)
+    save_img(cur_img, "images/salt_2_harmonic_task_2.png")
+    # contraharmonic mean filter
+    for contra_q in [-1.5, 1.0]:
+        cur_filter = MyFilter("contraharmonic", 5, contra_q)
+        cur_img = filter2d(output_img, cur_filter)
+        save_img(cur_img, "images/salt_2_contra_%d_task_2.png" % contra_q)
 
+    # salt and pepper noise and denoise
+    output_img = add_noise(input_img, "s&p", {'salt_prob': 0.2,
+                                              'pepper_prob': 0.2})
+    save_img(output_img, "images/salt_2_pepper_2_task_2.png")
+    output_img = np.clip(output_img, 0, 255)
+    filters_type = ["arithmetic", "geometric", "max", "min", "median"]
+    for filter_type in filters_type:
+        cur_filter = MyFilter(filter_type, 5)
+        cur_img = filter2d(output_img, cur_filter)
+        save_img(cur_img, "images/salt_2_pepper_2_%s_task_2.png" % filter_type)
 
 
 if __name__ == "__main__":

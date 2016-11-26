@@ -59,3 +59,39 @@ Denoise using geometric mean filter with window size = 5
 Denoise using median filter with window size = 5
 
 The one with arithmetic mean filter looks best, while the one with geometric mean fitler looks worest.
+
+* **2.3.3 Add salt noise and denoise**
+
+![](src/images/salt_2_task_2.png)<br>
+Add salt noise with probability = 0.2
+
+![](src/images/salt_2_harmonic_task_2.png)<br>
+Denoise using harmonic mean filter with windown size as 5
+
+![](src/images/salt_2_contra_-1_task_2.png)<br>
+Denoise using contraharmonic mean filter with $Q=-1.5$ and window size as 5
+
+![](src/images/salt_2_contra_1_task_2.png)<br>
+Denoise using contraharmonic mean filter with $Q=1.0$ and window size as 5
+
+* **2.3.4 Add salt-and-pepper noise and denoise**
+
+![](src/images/salt_2_pepper_2_task_2.png)<br>
+Add salt and pepper noise with both probabilities=2
+
+![](src/images/salt_2_pepper_2_arithmetic_task_2.png)<br>
+Denoise using arithmetic mean filter with window size as 5
+
+![](src/images/salt_2_pepper_2_geometric_task_2.png)<br>
+Denoise using geometric mean filter with window size as 5
+
+![](src/images/salt_2_pepper_2_max_task_2.png)<br>
+Denoise using max filter with window size as 5
+
+![](src/images/salt_2_pepper_2_min_task_2.png)<br>
+Denoise using min filter with window size as 5
+
+![](src/images/salt_2_pepper_2_median_task_2.png)<br>
+Denoise using median filter with window size as 5
+
+The image with median filter gets the best result.
