@@ -38,3 +38,24 @@ Using 3x3 contraharmonic mean filter
 Using 9x9 contraharmonic mean filter
 
 The same as 2.2.2
+
+### 2.3 Image Denoising
+
+![](src/images/task_2.png)<br>
+input image for task 2
+
+* **2.3.2 Add Gaussian noise and denoise**
+
+![](src/images/gauss_0_40_task_2.png)<br>
+Add Gaussian noise with mean = 0 and sigma = 40
+
+![](src/images/gauss_0_40_arithmetic_task_2.png)<br>
+Denoise using arithmetic mean filter with size = 5
+
+![](src/images/gauss_0_40_geometric_task_2.png)<br>
+Denoise using geometric mean filter with window size = 5
+
+![](src/images/gauss_0_40_median_task_2.png)<br>
+Denoise using median filter with window size = 5
+
+The one with arithmetic mean filter looks best, while the one with geometric mean fitler looks worest.

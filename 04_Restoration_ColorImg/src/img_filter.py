@@ -15,10 +15,16 @@ class MyFilter:
             res = np.mean(img_block)
         elif self.filter_type == "harmonic":
             res = img_block.size / np.sum(1.0 / (img_block + 1e-9))
-        else: #  contraharmonic
+        elif self.filter_type == "contraharmonic":
             Q = -1.5
             img_block += 1e-9
             res = np.sum(img_block ** (Q + 1)) / np.sum(img_block ** Q)
+        elif self.filter_type == "geometric":
+            res = np.prod(img_block) ** (1.0 / img_block.size)
+        elif self.filter_type == "median":
+            res = np.median(img_block)
+        else:
+            raise ValueError("Filter type is not supported yet.")
         return res
 
 
