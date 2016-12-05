@@ -1,5 +1,42 @@
 # HW4: Image Restoration and Color Image Processing
 
+## 1 Exercises
+
+### 1.1 Color Spaces
+
+* **1.1.1 Which model is advantageous**
+    * Filtering in HSI color space is more advantages than RGB color space. Filtering in HSI only requires filtering in the luminance (I) color channel. You don’t need to perform filtering in Chrominance channels. However filtering in RGB color space requires filtering in all channels (R, G and B)
+    * RGB model is advantageous when used in image capture by a color camer or image display in a monitor screen
+
+* **1.1.2 What is the effect of adding 60 degrees to the Hue components?**
+Adding 60 degrees to the Hue components shifts the RGB components such that R becomes Yellow, G becomes Cyan and B becomes Magenta. It means to perform an RGB to CMY conversion.
+
+### 1.2 Color Composition
+
+![](src/images/solution_1_2.png)<br>
+Set the intersection between line $c_3c$ and line $c_1c_2$ as $c_0$. So line $c_1c_2$ can be expressed as
+$$
+y-y_1=\frac{y_1-y_2}{x_1-x_2} \times (x-x_1)
+$$
+and line $c_3c$ can be expressed as
+$$
+y-y_c=\frac{y_c-y_3}{x_c-x_3} \times (x-x_c)
+$$
+So the coordinates $(x_0, y_0)$ of $c_0$ should be able to calculated from the above two equation.<br>
+We note $d(a, b)$ as the distance between point $a$ and $b$, which can be expressed as:
+$$
+d(a, b) = \sqrt{(x_a-x_b)^2+(y_a-y_b)^2}
+$$
+So the percentage $p_3$ of $c_3$ in $c$ can be expressed as:
+$$
+p_3 = \frac{d(c_0, c_3) - d(c, c_3)}{d(c_0, c_3)} \times 100
+$$
+And the percentage $p_1$ of $c_1$ in $c$ and $p_2$ of $c_2$ in $c$ and be calculated from the following two equations:
+$$
+p_1 + p_2 = 100 - p_3 \\
+\frac{p_1}{p_2} = \frac{d(c_0, c_2)}{d(c_0, c_1)}
+$$
+And that's all for the expressions.
 
 ## 2 Programming Tasks
 
