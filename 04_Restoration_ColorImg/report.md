@@ -95,3 +95,20 @@ Denoise using min filter with window size as 5
 Denoise using median filter with window size as 5
 
 The image with median filter gets the best result.
+
+### 2.4 Histogram Equalization on Color Images
+
+![](src/images/72.png)<br>
+Original Image for task 3
+
+* **2.4.1 Processing the R, G, B channels separately**
+
+![](src/images/72_color_equa_1.png)<br>
+
+* **2.4.2 Using a single histogram equalization intensity transformation function**
+
+![](src/images/72_color_equa_2.png)<br>
+
+* **2.4.3 Compare the above results**
+
+The result get from *2.4.2* is much **better** than *2.4.1*
