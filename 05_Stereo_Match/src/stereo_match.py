@@ -33,31 +33,29 @@ def get_disp_map(left_img, right_img, direct_type, cost_func):
     right_arr = np.array(right_img, dtype=np.float)
     disp_map = np.zeros(left_arr.shape[0:2])
 
-    main_arr = np.zeros((left_arr.shape[0] + patch_size - 1,
-                        left_arr.shape[1] + patch_size - 1,
-                        left_arr.shape[2]))
-    compare_arr = np.zeros_like(main_arr)
+    main_arr = np.zeros_like(left_arr)
+    compare_arr = np.zeros_like(left_arr)
 
     half_patch = patch_size / 2
     if direct_type == "left":
-        main_arr[half_patch : -half_patch, half_patch : -half_patch, :] = left_arr
-        compare_arr[half_patch : -half_patch, half_patch : -half_patch, :] = right_arr
+        main_arr = left_arr
+        compare_arr = right_arr
         d_arr = -np.arange(dmax + 1)
     else:  # right disparity map
-        main_arr[half_patch : -half_patch, half_patch : -half_patch, :] = right_arr
-        compare_arr[half_patch : -half_patch, half_patch : -half_patch, :] = left_arr
+        main_arr = right_arr
+        compare_arr = left_arr
         d_arr = np.arange(dmax + 1)
 
-    for xidx in xrange(half_patch, left_arr.shape[0] + half_patch):
-        for yidx in xrange(half_patch, left_arr.shape[1] + half_patch):
+    for xidx in xrange(half_patch, left_arr.shape[0] - half_patch):
+        for yidx in xrange(half_patch, left_arr.shape[1] - half_patch):
             main_patch = get_patch((xidx, yidx), patch_size, main_arr)
             min_d = 0
             min_disp = float('Inf')
             for ditem in d_arr:
-                compare_x = xidx + ditem
-                if compare_x < half_patch or compare_x >= left_arr.shape[0] + half_patch:
+                compare_y = yidx + ditem
+                if compare_y < half_patch or compare_y >= left_arr.shape[1] - half_patch:
                     break
-                compare_patch = get_patch((compare_x, yidx), patch_size, compare_arr)
+                compare_patch = get_patch((xidx, compare_y), patch_size, compare_arr)
                 cur_disp = cost_func((main_patch, compare_patch))
                 if cur_disp < min_disp:
                     min_disp = cur_disp
@@ -96,14 +94,16 @@ def main():
     tic()
     disp1_ssd = get_disp_map(left_img, right_img, "left", ssd_cost)
     toc()
-    print disp1_ssd.tolist()
-    #disp5_ssd = get_disp_map(left_img, right_img, "right", ssd_cost)
+    tic()
+    disp5_ssd = get_disp_map(left_img, right_img, "right", ssd_cost)
+    toc()
     Image.fromarray(disp1_ssd, 'L').show()
-    #Image.fromarray(disp5_ssd, 'L').show()
+    Image.fromarray(disp5_ssd, 'L').show()
     print get_bad_percent(Image.fromarray(disp1_ssd, 'L'),
                           Image.open('images/Aloe/disp1.png').convert('L'))
-    #print get_bad_percent(Image.fromarray(disp5_ssd, 'L'),
-    #                      Image.open('images/Aloe/disp5.png').convert('L'))
+    print get_bad_percent(Image.fromarray(disp5_ssd, 'L'),
+                          Image.open('images/Aloe/disp5.png').convert('L'))
+
 
 
 if __name__ == "__main__":
