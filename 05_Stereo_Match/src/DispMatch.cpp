@@ -11,7 +11,7 @@ DispMatch::DispMatch(const cv::Mat& leftImg, const cv::Mat& rightImg):
 }
 
 DispMatch::~DispMatch(){
-    std::cout << "Release DispMatch" << std::endl;
+    //std::cout << "Release DispMatch" << std::endl;
 }
 
 cv::Mat DispMatch::getDispMap(string directType, string costType) {
@@ -20,19 +20,19 @@ cv::Mat DispMatch::getDispMap(string directType, string costType) {
     Size s = leftImg.size();
     int imgRows = s.height;
     int imgCols = s.width;
-    Mat dispMap = Mat::zeros(Size(imgCols, imgRows), CV_8U);
+    Mat dispMap = Mat::zeros(s, CV_8U);
 
-    Mat mainMat = Mat::zeros(s, CV_8U);
-    Mat compareMat = Mat::zeros(s, CV_8U);
+    Mat mainMat = Mat::zeros(s, CV_32F);
+    Mat compareMat = Mat::zeros(s, CV_32F);
 
     int halfPatch = patchSize / 2;
     if (directType == "left") {
-        mainMat = leftImg;
-        compareMat = rightImg;
+        leftImg.convertTo(mainMat, CV_32F);
+        rightImg.convertTo(compareMat, CV_32F);
     }
     else {
-        mainMat = rightImg;
-        compareMat = leftImg;
+        rightImg.convertTo(mainMat, CV_32F);
+        leftImg.convertTo(compareMat, CV_32F);
     }
 
     // The coordinate system is different from PIL in Python
@@ -60,7 +60,7 @@ cv::Mat DispMatch::getDispMap(string directType, string costType) {
             //std::cout << minD << std::endl;
         }
     }
-    std::cout << "Successfully construct disp map" << std::endl;
+    //std::cout << "Successfully construct disp map" << std::endl;
 
     return dispMap;
 }
