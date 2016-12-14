@@ -4,22 +4,31 @@
 
 using namespace cv;
 
+void matchFn(const Mat& leftImg, const Mat& rightImg, string costMethod);
+
 
 int main(int argc, char const *argv[]) {
     Mat leftImg = imread("images/Aloe/view1.png", CV_LOAD_IMAGE_GRAYSCALE);
     Mat rightImg = imread("images/Aloe/view5.png", CV_LOAD_IMAGE_GRAYSCALE);
+    rightImg += 10;
 
-    DispMatch dispMatch(leftImg, rightImg);
-    Mat dispLSSD = dispMatch.getDispMap("left", "SSD");
     //namedWindow("Display Image", WINDOW_AUTOSIZE);
     //imshow("Display Image", dispASSD);
-    imwrite("images/Aloe/Aloe_disp1_SSD.png", dispLSSD);
-    std::cout << "Save image Aloe_disp1_SSD.png" << std::endl;
 
-    Mat dispRSSD = dispMatch.getDispMap("right", "SSD");
-    imwrite("images/Aloe/Aloe_disp5_SSD.png", dispRSSD);
-    std::cout << "Save image Aloe_disp5_SSD.png" << std::endl;
+    matchFn(leftImg, rightImg, "SSD");
+    matchFn(leftImg, rightImg, "NCC");
 
-    //waitKey(0);
     return 0;
+}
+
+void matchFn(const Mat& leftImg, const Mat& rightImg, string costMethod) {
+    DispMatch dispMatch(leftImg, rightImg);
+    Mat dispL = dispMatch.getDispMap("left", costMethod);
+
+    imwrite("images/Aloe/Aloe_disp1_" + costMethod + ".png", dispL);
+    std::cout << "Saved image Aloe_disp1_" + costMethod + ".png" << std::endl;
+
+    Mat dispR = dispMatch.getDispMap("right", costMethod);
+    imwrite("images/Aloe/Aloe_disp5_" + costMethod + ".png", dispR);
+    std::cout << "Saved image Aloe_disp5_" + costMethod + ".png" << std::endl;
 }

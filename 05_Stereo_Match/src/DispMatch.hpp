@@ -15,6 +15,7 @@ private:
     cv::Mat rightImg;
     double costSSD(const cv::Mat& patchA, const cv::Mat& patchB);
     double costNCC(const cv::Mat& patchA, const cv::Mat& patchB);
+    cv::Mat normMat(const cv::Mat& patch);
 };
 
 
