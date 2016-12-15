@@ -1,45 +1,77 @@
 #include <opencv2/opencv.hpp>
+#include <vector>
+#include <string>
 #include <iostream>
+#include <algorithm>
+
+#include <dirent.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "DispMatch.hpp"
 
 using namespace cv;
 using namespace std;
 
-void matchFn(const Mat& leftImg, const Mat& rightImg, string costMethod);
+
+int getdir (string dir, vector<string> &subfolders);
+void matchFn(DispMatch& dispMatch, string folderName, string costMethod);
 
 
 int main(int argc, char const *argv[]) {
-    Mat leftImg = imread("images/Aloe/view1.png", CV_LOAD_IMAGE_COLOR);
-    Mat rightImg = imread("images/Aloe/view5.png", CV_LOAD_IMAGE_COLOR);
-    //rightImg += 10;
+    string dir = string("images");
+    vector<string> subfolders;
+    getdir(dir, subfolders);
+    for (unsigned int i = 0; i < subfolders.size(); ++i) {
+        cout << subfolders[i] << endl;
+        Mat leftImg = imread(dir + "/" + subfolders[i] + "/view1.png", CV_LOAD_IMAGE_COLOR);
+        Mat rightImg = imread(dir + "/" + subfolders[i] + "/view5.png", CV_LOAD_IMAGE_COLOR);
+        //rightImg += 10;
+        DispMatch dispMatch(leftImg, rightImg);
 
-    //Mat mainMat;
-    //leftImg.convertTo(mainMat, CV_32F);
-    //Vec3f pointA = mainMat.at<Vec3f>(Point(12,6));
-    //cout << abs(Mat(pointA)) << endl;
-    //Vec3f pointB = mainMat.at<Vec3f>(Point(12,6));
-    //cout << pointB << endl;
-    //cout << pointA - pointB << endl;
-    //cout << (pointA - pointB).mul(pointA - pointB) << endl;
-    //cout << sum((pointA - pointB).mul(pointA - pointB)).val[0] << endl;
-
+        matchFn(dispMatch, subfolders[i], "SSD");
+        matchFn(dispMatch, subfolders[i], "NCC");
+        matchFn(dispMatch, subfolders[i], "ASW");
+    }
     //namedWindow("Display Image", WINDOW_AUTOSIZE);
     //imshow("Display Image", dispASSD);
-
-    matchFn(leftImg, rightImg, "ASW");
-    //matchFn(leftImg, rightImg, "NCC");
-
     return 0;
 }
 
-void matchFn(const Mat& leftImg, const Mat& rightImg, string costMethod) {
-    DispMatch dispMatch(leftImg, rightImg);
-    Mat dispL = dispMatch.getDispMap("left", costMethod);
 
-    imwrite("images/Aloe/Aloe_disp1_" + costMethod + ".png", dispL);
-    std::cout << "Saved image Aloe_disp1_" + costMethod + ".png" << std::endl;
+int getdir (string dir, vector<string> &subfolders)
+{
+    DIR *dp;
+    struct dirent *dirp;
+    if((dp  = opendir(dir.c_str())) == NULL) {
+        cout << "Error(" << errno << ") opening " << dir << endl;
+        return errno;
+    }
+
+    while ((dirp = readdir(dp)) != NULL) {
+        string dirName = dirp->d_name;
+        if (dirName == "." || dirName == ".." || dirName == "README.md")
+            continue;
+        subfolders.push_back(dirName);
+    }
+    sort(subfolders.begin(), subfolders.end());
+    closedir(dp);
+    return 0;
+}
+
+void matchFn(DispMatch& dispMatch, string folderName, string costMethod) {
+    string namePrefix = "images/" + folderName + "/" + folderName + "_";
+
+    Mat dispL = dispMatch.getDispMap("left", costMethod);
+    string lImgName = namePrefix + "disp1_" + costMethod + ".png";
+    imwrite(lImgName, dispL);
+    cout << "Successfully saved " + lImgName << endl;
 
     Mat dispR = dispMatch.getDispMap("right", costMethod);
-    imwrite("images/Aloe/Aloe_disp5_" + costMethod + ".png", dispR);
-    std::cout << "Saved image Aloe_disp5_" + costMethod + ".png" << std::endl;
+    string rImgName = namePrefix + "disp5_" + costMethod + ".png";
+    imwrite(rImgName, dispR);
+    cout << "Successfully saved " + rImgName << endl;
+
 }
