@@ -9,7 +9,7 @@ void matchFn(const Mat& leftImg, const Mat& rightImg, string costMethod);
 
 
 int main(int argc, char const *argv[]) {
-    Mat leftImg = imread("images/Aloe/view1.png", CV_LOAD_IMAGE_GRAYSCALE);
+    Mat leftImg = imread("images/Aloe/view1.png", CV_LOAD_IMAGE_COLOR);
     Mat rightImg = imread("images/Aloe/view5.png", CV_LOAD_IMAGE_COLOR);
     //rightImg += 10;
 

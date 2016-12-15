@@ -26,21 +26,26 @@ cv::Mat DispMatch::getDispMap(string directType, string costType) {
     Mat dispMap = Mat::zeros(Size(imgCols, imgRows), CV_8U);
 
     Mat mainMat, compareMat;
+    //get the CIELab color for ASW
+    Mat mainMatLab, compareMatLab;
 
     int halfPatch = patchSize / 2;
     if (directType == "left") {
         leftImg.convertTo(mainMat, CV_32F);
         rightImg.convertTo(compareMat, CV_32F);
+        cvtColor(leftImg, mainMatLab, CV_RGB2Lab);
+        cvtColor(rightImg, compareMatLab, CV_RGB2Lab);
     }
     else {
         rightImg.convertTo(mainMat, CV_32F);
         leftImg.convertTo(compareMat, CV_32F);
+        cvtColor(rightImg, mainMatLab, CV_RGB2Lab);
+        cvtColor(leftImg, compareMatLab, CV_RGB2Lab);
     }
 
-    //get the CIELab color for ASW
-    Mat mainMatLab, compareMatLab;
-    cvtColor(mainMat, mainMatLab, CV_RGB2Lab);
-    cvtColor(compareMat, compareMatLab, CV_RGB2Lab);
+    // convert lab color from cv_8u to CV_32F
+    mainMatLab.convertTo(mainMatLab, CV_32F);
+    compareMatLab.convertTo(compareMatLab, CV_32F);
 
     // The coordinate system is different from PIL in Python
     for (int yidx = 0; yidx < imgRows - patchSize; ++yidx) {
