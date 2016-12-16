@@ -52,7 +52,8 @@ int getdir (string dir, vector<string> &subfolders)
 
     while ((dirp = readdir(dp)) != NULL) {
         string dirName = dirp->d_name;
-        if (dirName == "." || dirName == ".." || dirName == "README.md")
+        if (dirName == "." || dirName == ".." || dirName == "README.md"
+            || dirName == ".gitignore")
             continue;
         subfolders.push_back(dirName);
     }
