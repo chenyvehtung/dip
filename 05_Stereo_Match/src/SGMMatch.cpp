@@ -2,12 +2,15 @@
 
 using namespace cv;
 using std::string;
+using std::cout;
+using std::endl;
 
-SGMMatch(cv::Mat leftImg, cv::Mat rightImg, unsigned short pathNum,
-        unsigned short disparityRange, unsigned short patchSize) :
-        pathNum(pathNum), disparityRange(disparityRange), patchSize(patchSize) {
-    // convert img from rgb to gray 
-
+SGMMatch::SGMMatch(cv::Mat _leftImg, cv::Mat _rightImg, unsigned short _pathNum,
+        unsigned short _disparityRange, unsigned short _patchSize) :
+        pathNum(_pathNum), disparityRange(_disparityRange), patchSize(_patchSize) {
+    // convert img from bgr to gray
+    cvtColor(_leftImg, leftImg, CV_BGR2GRAY);
+    cvtColor(_rightImg, rightImg, CV_BGR2GRAY);
 }
 
 cv::Mat SGMMatch::getDispMap(string directType) {
@@ -18,8 +21,9 @@ cv::Mat SGMMatch::getDispMap(string directType) {
     Mat dispMap = Mat::zeros(Size(leftImg.cols, leftImg.rows), CV_8U);
     for (int row = 0; row < leftImg.rows; ++row) {
         for (int col = 0; col < leftImg.cols; ++col) {
-            dispMap.at<char>(row, col) = 3 * std::distance(smoothCosts[row][col],
+            int dispItem = std::distance(smoothCosts[row][col],
                 std::min_element(smoothCosts[row][col], smoothCosts[row][col] + disparityRange));
+            dispMap.at<char>(row, col) = 3 * dispItem;
         }
     }
 
@@ -36,14 +40,18 @@ void SGMMatch::initCosts(string directType) {
         pixelCosts[row] = new unsigned short *[cols];
         smoothCosts[row] = new double *[cols];
         for (int col = 0; col < cols; ++col) {
-            pixelCosts[row][col] = new unsigned short [disparityRange];
-            // initialize smoothed cost of all pixel to be zero
+            // initialize smoothed cost of all pixel to be zere
             smoothCosts[row][col] = new double [disparityRange]();
+
+            // initialize pixel cost to be max
+            pixelCosts[row][col] = new unsigned short [disparityRange];
+            for (int d = 0; d < disparityRange; ++d)
+                pixelCosts[row][col][d] = std::numeric_limits<unsigned short>::max();
         }
     }
 
-    singlePathCosts = new double ***[PATHS_PER_SCAN];
-    for (int p = 0; p < PATHS_PER_SCAN; ++p) {
+    singlePathCosts = new double ***[pathNum / 2];
+    for (int p = 0; p < pathNum / 2; ++p) {
         singlePathCosts[p] = new double **[rows];
         for (int row = 0; row < rows; ++row) {
             singlePathCosts[p][row] = new double *[cols];
@@ -69,6 +77,7 @@ void SGMMatch::calculatePixelCosts(string directType) {
     }
     int rows = mainMat.rows;
     int cols = mainMat.cols;
+    int halfPatch = patchSize / 2;
 
     for (int row = 0; row < rows - patchSize; ++row) {
         for (int col = 0; col < cols - patchSize; ++col) {
@@ -79,14 +88,14 @@ void SGMMatch::calculatePixelCosts(string directType) {
                     break;
 
                 Mat comparePatch = Mat(compareMat, Rect(compareCol, row, patchSize, patchSize));
-                pixelCosts[row][col][d] = costSAD(mainPatch, comparePatch);
+                pixelCosts[row + halfPatch][col + halfPatch][d] = costSAD(mainPatch, comparePatch);
             }
         }
     }
 }
 
 unsigned short SGMMatch::costSAD(const cv::Mat& patchA, const cv::Mat& patchB) {
-    return sum(abs(patchA - patchB));
+    return sum(abs(patchA - patchB)).val[0];
 }
 
 void SGMMatch::initPathDirection() {
@@ -148,7 +157,7 @@ double SGMMatch::aggOneDireCost(int row, int col, int curDisp, short *curPathDir
     }
 
     // minL(p-r, i)
-    double prevMinCost = std::min_element(singlePathCosts[curPathIdx][prevRow][prevCol],
+    double prevMinCost = *std::min_element(singlePathCosts[curPathIdx][prevRow][prevCol],
                             singlePathCosts[curPathIdx][prevRow][prevCol] + disparityRange);
     // L(p-r, d)
     double prevCost = singlePathCosts[curPathIdx][prevRow][prevCol][curDisp];

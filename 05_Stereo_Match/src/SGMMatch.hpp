@@ -8,15 +8,13 @@
 #include <ctime>
 #include <opencv2/opencv.hpp>
 
-#define PATHS_PER_SCAN 2
-#define MAX_SHORT std::numeric_limits<unsigned short>::max()
 #define SMALL_PENALTY 3
 #define LARGE_PENALTY 20
 
 class SGMMatch {
 public:
-    SGMMatch(cv::Mat leftImg, cv::Mat rightImg, unsigned short pathNum,
-            unsigned short disparityRange, unsigned short patchSize);
+    SGMMatch(cv::Mat _leftImg, cv::Mat _rightImg, unsigned short _pathNum,
+            unsigned short _disparityRange, unsigned short _patchSize);
     ~SGMMatch(){};
     cv::Mat getDispMap(std::string directType);
 
@@ -26,7 +24,7 @@ private:
     unsigned short pathNum;
     unsigned short disparityRange;
     unsigned short patchSize;
-    short          **pathDirection
+    short          **pathDirection;
     unsigned short ***pixelCosts;
     double         ***smoothCosts;
     double         ****singlePathCosts;

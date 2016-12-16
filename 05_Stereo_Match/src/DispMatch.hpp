@@ -8,12 +8,16 @@
 
 class DispMatch {
 public:
-    DispMatch(const cv::Mat& leftImg, const cv::Mat& rightImg);
+    DispMatch(const cv::Mat& _leftImg, const cv::Mat& _rightImg, unsigned short _disparityRange,
+                unsigned short _patchSize);
     ~DispMatch();
     cv::Mat getDispMap(std::string directType, std::string costType);
 private:
     cv::Mat leftImg;
     cv::Mat rightImg;
+    unsigned short disparityRange;
+    unsigned short patchSize;
+
     double costSSD(const cv::Mat& patchA, const cv::Mat& patchB);
     double costNCC(const cv::Mat& patchA, const cv::Mat& patchB);
     cv::Mat normMat(const cv::Mat& patch);

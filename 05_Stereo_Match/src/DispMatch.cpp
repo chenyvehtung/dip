@@ -1,4 +1,5 @@
 #include "DispMatch.hpp"
+#include "SGMMatch.hpp"
 #include <limits>
 #include <iostream>
 #include <vector>
@@ -8,8 +9,10 @@ using namespace cv;
 using std::string;
 
 
-DispMatch::DispMatch(const cv::Mat& leftImg, const cv::Mat& rightImg):
-    leftImg(leftImg), rightImg(rightImg) {
+DispMatch::DispMatch(const Mat& _leftImg, const Mat& _rightImg,
+    unsigned short _disparityRange, unsigned short _patchSize):
+    leftImg(_leftImg), rightImg(_rightImg), disparityRange(_disparityRange),
+    patchSize(_patchSize) {
 
 }
 
@@ -18,12 +21,20 @@ DispMatch::~DispMatch(){
 }
 
 cv::Mat DispMatch::getDispMap(string directType, string costType) {
-    int dMax = 79;
-    int patchSize = 5;
+    //int disparityRange = 79;
+    //int patchSize = 5;
     Size s = leftImg.size();
     int imgRows = s.height;
     int imgCols = s.width;
     Mat dispMap = Mat::zeros(Size(imgCols, imgRows), CV_8U);
+
+    if (costType == "SGM") {
+        int pathNum = 16;
+        SGMMatch *sgmMatch = new SGMMatch(leftImg, rightImg, pathNum, disparityRange+1, patchSize);
+        dispMap = sgmMatch->getDispMap(directType);
+        delete sgmMatch;
+        return dispMap;
+    }
 
     Mat mainMat, compareMat;
     //get the CIELab color for ASW
@@ -33,14 +44,14 @@ cv::Mat DispMatch::getDispMap(string directType, string costType) {
     if (directType == "left") {
         leftImg.convertTo(mainMat, CV_32F);
         rightImg.convertTo(compareMat, CV_32F);
-        cvtColor(leftImg, mainMatLab, CV_RGB2Lab);
-        cvtColor(rightImg, compareMatLab, CV_RGB2Lab);
+        cvtColor(leftImg, mainMatLab, CV_BGR2Lab);
+        cvtColor(rightImg, compareMatLab, CV_BGR2Lab);
     }
     else {
         rightImg.convertTo(mainMat, CV_32F);
         leftImg.convertTo(compareMat, CV_32F);
-        cvtColor(rightImg, mainMatLab, CV_RGB2Lab);
-        cvtColor(leftImg, compareMatLab, CV_RGB2Lab);
+        cvtColor(rightImg, mainMatLab, CV_BGR2Lab);
+        cvtColor(leftImg, compareMatLab, CV_BGR2Lab);
     }
 
     // convert lab color from cv_8u to CV_32F
@@ -53,7 +64,7 @@ cv::Mat DispMatch::getDispMap(string directType, string costType) {
             Mat mainPatch = Mat(mainMat, Rect(xidx, yidx, patchSize, patchSize));
             // find the best d
             std::vector<double> allDisps;
-            for (int dItem = 0; dItem <= dMax; ++dItem) {
+            for (int dItem = 0; dItem <= disparityRange; ++dItem) {
                 int compareX = (directType == "left") ? xidx - dItem : xidx + dItem;
                 if (compareX < 0 || compareX >= imgCols - patchSize)
                     break;

@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <ctime>
 
 #include <dirent.h>
 #include <errno.h>
@@ -21,6 +22,9 @@ void matchFn(DispMatch& dispMatch, string folderName, string costMethod);
 
 
 int main(int argc, char const *argv[]) {
+    int disparityRange = 79;
+    int patchSize = 5;
+
     string dir = string("images");
     vector<string> subfolders;
     getdir(dir, subfolders);
@@ -29,11 +33,12 @@ int main(int argc, char const *argv[]) {
         Mat leftImg = imread(dir + "/" + subfolders[i] + "/view1.png", CV_LOAD_IMAGE_COLOR);
         Mat rightImg = imread(dir + "/" + subfolders[i] + "/view5.png", CV_LOAD_IMAGE_COLOR);
         //rightImg += 10;
-        DispMatch dispMatch(leftImg, rightImg);
+        DispMatch dispMatch(leftImg, rightImg, disparityRange, patchSize);
 
         matchFn(dispMatch, subfolders[i], "SSD");
         matchFn(dispMatch, subfolders[i], "NCC");
         matchFn(dispMatch, subfolders[i], "ASW");
+        matchFn(dispMatch, subfolders[i], "SGM");
     }
     //namedWindow("Display Image", WINDOW_AUTOSIZE);
     //imshow("Display Image", dispASSD);
@@ -63,6 +68,7 @@ int getdir (string dir, vector<string> &subfolders)
 }
 
 void matchFn(DispMatch& dispMatch, string folderName, string costMethod) {
+    clock_t begin = clock();
     string namePrefix = "images/" + folderName + "/" + folderName + "_";
 
     Mat dispL = dispMatch.getDispMap("left", costMethod);
@@ -75,4 +81,7 @@ void matchFn(DispMatch& dispMatch, string folderName, string costMethod) {
     imwrite(rImgName, dispR);
     cout << "Successfully saved " + rImgName << endl;
 
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    cout << "Done in " << elapsed_secs << " seconds." << endl;
 }
