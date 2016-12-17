@@ -15,7 +15,7 @@ class SGMMatch {
 public:
     SGMMatch(cv::Mat _leftImg, cv::Mat _rightImg, unsigned short _pathNum,
             unsigned short _disparityRange, unsigned short _patchSize);
-    ~SGMMatch(){};
+    ~SGMMatch();
     cv::Mat getDispMap(std::string directType);
 
 private:

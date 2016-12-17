@@ -13,6 +13,26 @@ SGMMatch::SGMMatch(cv::Mat _leftImg, cv::Mat _rightImg, unsigned short _pathNum,
     cvtColor(_rightImg, rightImg, CV_BGR2GRAY);
 }
 
+SGMMatch::~SGMMatch() {
+    int rows = leftImg.rows;
+    int cols = leftImg.cols;
+
+    for (int row = 0; row < rows; ++row) {
+        for (int col = 0; col < cols; ++col) {
+            delete[] smoothCosts[row][col];
+            delete[] pixelCosts[row][col];
+        }
+    }
+
+    for (int p = 0; p < pathNum / 2; ++p) {
+        for (int row = 0; row < rows; ++row) {
+            for (int col = 0; col < cols; ++col) {
+                delete[] singlePathCosts[p][row][col];
+            }
+        }
+    }
+}
+
 cv::Mat SGMMatch::getDispMap(string directType) {
     initCosts(directType);
     initPathDirection();
