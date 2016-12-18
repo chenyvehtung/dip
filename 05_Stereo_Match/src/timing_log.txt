@@ -1,0 +1,273 @@
+Aloe
+Successfully saved images/Aloe/Aloe_disp1_SSD.png
+Successfully saved images/Aloe/Aloe_disp5_SSD.png
+Done in 23.4506 seconds.
+Successfully saved images/Aloe/Aloe_disp1_NCC.png
+Successfully saved images/Aloe/Aloe_disp5_NCC.png
+Done in 57.6208 seconds.
+Successfully saved images/Aloe/Aloe_disp1_ASW.png
+Successfully saved images/Aloe/Aloe_disp5_ASW.png
+Done in 904.634 seconds.
+Successfully saved images/Aloe/Aloe_disp1_SGM.png
+Successfully saved images/Aloe/Aloe_disp5_SGM.png
+Done in 188.525 seconds.
+Baby1
+Successfully saved images/Baby1/Baby1_disp1_SSD.png
+Successfully saved images/Baby1/Baby1_disp5_SSD.png
+Done in 22.1694 seconds.
+Successfully saved images/Baby1/Baby1_disp1_NCC.png
+Successfully saved images/Baby1/Baby1_disp5_NCC.png
+Done in 55.164 seconds.
+Successfully saved images/Baby1/Baby1_disp1_ASW.png
+Successfully saved images/Baby1/Baby1_disp5_ASW.png
+Done in 872.258 seconds.
+Successfully saved images/Baby1/Baby1_disp1_SGM.png
+Successfully saved images/Baby1/Baby1_disp5_SGM.png
+Done in 186.784 seconds.
+Baby2
+Successfully saved images/Baby2/Baby2_disp1_SSD.png
+Successfully saved images/Baby2/Baby2_disp5_SSD.png
+Done in 21.2674 seconds.
+Successfully saved images/Baby2/Baby2_disp1_NCC.png
+Successfully saved images/Baby2/Baby2_disp5_NCC.png
+Done in 55.1857 seconds.
+Successfully saved images/Baby2/Baby2_disp1_ASW.png
+Successfully saved images/Baby2/Baby2_disp5_ASW.png
+Done in 874.512 seconds.
+Successfully saved images/Baby2/Baby2_disp1_SGM.png
+Successfully saved images/Baby2/Baby2_disp5_SGM.png
+Done in 191.636 seconds.
+Baby3
+Successfully saved images/Baby3/Baby3_disp1_SSD.png
+Successfully saved images/Baby3/Baby3_disp5_SSD.png
+Done in 22.8976 seconds.
+Successfully saved images/Baby3/Baby3_disp1_NCC.png
+Successfully saved images/Baby3/Baby3_disp5_NCC.png
+Done in 58.1156 seconds.
+Successfully saved images/Baby3/Baby3_disp1_ASW.png
+Successfully saved images/Baby3/Baby3_disp5_ASW.png
+Done in 923.764 seconds.
+Successfully saved images/Baby3/Baby3_disp1_SGM.png
+Successfully saved images/Baby3/Baby3_disp5_SGM.png
+Done in 209.462 seconds.
+Bowling1
+Successfully saved images/Bowling1/Bowling1_disp1_SSD.png
+Successfully saved images/Bowling1/Bowling1_disp5_SSD.png
+Done in 21.8067 seconds.
+Successfully saved images/Bowling1/Bowling1_disp1_NCC.png
+Successfully saved images/Bowling1/Bowling1_disp5_NCC.png
+Done in 54.977 seconds.
+Successfully saved images/Bowling1/Bowling1_disp1_ASW.png
+Successfully saved images/Bowling1/Bowling1_disp5_ASW.png
+Done in 878.256 seconds.
+Successfully saved images/Bowling1/Bowling1_disp1_SGM.png
+Successfully saved images/Bowling1/Bowling1_disp5_SGM.png
+Done in 200.439 seconds.
+Bowling2
+Successfully saved images/Bowling2/Bowling2_disp1_SSD.png
+Successfully saved images/Bowling2/Bowling2_disp5_SSD.png
+Done in 23.2228 seconds.
+Successfully saved images/Bowling2/Bowling2_disp1_NCC.png
+Successfully saved images/Bowling2/Bowling2_disp5_NCC.png
+Done in 58.5237 seconds.
+Successfully saved images/Bowling2/Bowling2_disp1_ASW.png
+Successfully saved images/Bowling2/Bowling2_disp5_ASW.png
+Done in 940.359 seconds.
+Successfully saved images/Bowling2/Bowling2_disp1_SGM.png
+Successfully saved images/Bowling2/Bowling2_disp5_SGM.png
+Done in 223.989 seconds.
+Cloth1
+Successfully saved images/Cloth1/Cloth1_disp1_SSD.png
+Successfully saved images/Cloth1/Cloth1_disp5_SSD.png
+Done in 24.0239 seconds.
+Successfully saved images/Cloth1/Cloth1_disp1_NCC.png
+Successfully saved images/Cloth1/Cloth1_disp5_NCC.png
+Done in 56.3296 seconds.
+Successfully saved images/Cloth1/Cloth1_disp1_ASW.png
+Successfully saved images/Cloth1/Cloth1_disp5_ASW.png
+Done in 887.563 seconds.
+Successfully saved images/Cloth1/Cloth1_disp1_SGM.png
+Successfully saved images/Cloth1/Cloth1_disp5_SGM.png
+Done in 193.665 seconds.
+Cloth2
+Successfully saved images/Cloth2/Cloth2_disp1_SSD.png
+Successfully saved images/Cloth2/Cloth2_disp5_SSD.png
+Done in 22.6652 seconds.
+Successfully saved images/Cloth2/Cloth2_disp1_NCC.png
+Successfully saved images/Cloth2/Cloth2_disp5_NCC.png
+Done in 57.55 seconds.
+Successfully saved images/Cloth2/Cloth2_disp1_ASW.png
+Successfully saved images/Cloth2/Cloth2_disp5_ASW.png
+Done in 919.237 seconds.
+Successfully saved images/Cloth2/Cloth2_disp1_SGM.png
+Successfully saved images/Cloth2/Cloth2_disp5_SGM.png
+Done in 221.568 seconds.
+Cloth3
+Successfully saved images/Cloth3/Cloth3_disp1_SSD.png
+Successfully saved images/Cloth3/Cloth3_disp5_SSD.png
+Done in 22.791 seconds.
+Successfully saved images/Cloth3/Cloth3_disp1_NCC.png
+Successfully saved images/Cloth3/Cloth3_disp5_NCC.png
+Done in 54.9814 seconds.
+Successfully saved images/Cloth3/Cloth3_disp1_ASW.png
+Successfully saved images/Cloth3/Cloth3_disp5_ASW.png
+Done in 887.051 seconds.
+Successfully saved images/Cloth3/Cloth3_disp1_SGM.png
+Successfully saved images/Cloth3/Cloth3_disp5_SGM.png
+Done in 201.983 seconds.
+Cloth4
+Successfully saved images/Cloth4/Cloth4_disp1_SSD.png
+Successfully saved images/Cloth4/Cloth4_disp5_SSD.png
+Done in 23.1098 seconds.
+Successfully saved images/Cloth4/Cloth4_disp1_NCC.png
+Successfully saved images/Cloth4/Cloth4_disp5_NCC.png
+Done in 57.7037 seconds.
+Successfully saved images/Cloth4/Cloth4_disp1_ASW.png
+Successfully saved images/Cloth4/Cloth4_disp5_ASW.png
+Done in 930.871 seconds.
+Successfully saved images/Cloth4/Cloth4_disp1_SGM.png
+Successfully saved images/Cloth4/Cloth4_disp5_SGM.png
+Done in 210.891 seconds.
+Flowerpots
+Successfully saved images/Flowerpots/Flowerpots_disp1_SSD.png
+Successfully saved images/Flowerpots/Flowerpots_disp5_SSD.png
+Done in 23.9734 seconds.
+Successfully saved images/Flowerpots/Flowerpots_disp1_NCC.png
+Successfully saved images/Flowerpots/Flowerpots_disp5_NCC.png
+Done in 59.4748 seconds.
+Successfully saved images/Flowerpots/Flowerpots_disp1_ASW.png
+Successfully saved images/Flowerpots/Flowerpots_disp5_ASW.png
+Done in 947.543 seconds.
+Successfully saved images/Flowerpots/Flowerpots_disp1_SGM.png
+Successfully saved images/Flowerpots/Flowerpots_disp5_SGM.png
+Done in 218.759 seconds.
+Lampshade1
+Successfully saved images/Lampshade1/Lampshade1_disp1_SSD.png
+Successfully saved images/Lampshade1/Lampshade1_disp5_SSD.png
+Done in 23.8453 seconds.
+Successfully saved images/Lampshade1/Lampshade1_disp1_NCC.png
+Successfully saved images/Lampshade1/Lampshade1_disp5_NCC.png
+Done in 59.1672 seconds.
+Successfully saved images/Lampshade1/Lampshade1_disp1_ASW.png
+Successfully saved images/Lampshade1/Lampshade1_disp5_ASW.png
+Done in 944.202 seconds.
+Successfully saved images/Lampshade1/Lampshade1_disp1_SGM.png
+Successfully saved images/Lampshade1/Lampshade1_disp5_SGM.png
+Done in 213.182 seconds.
+Lampshade2
+Successfully saved images/Lampshade2/Lampshade2_disp1_SSD.png
+Successfully saved images/Lampshade2/Lampshade2_disp5_SSD.png
+Done in 23.4176 seconds.
+Successfully saved images/Lampshade2/Lampshade2_disp1_NCC.png
+Successfully saved images/Lampshade2/Lampshade2_disp5_NCC.png
+Done in 57.8543 seconds.
+Successfully saved images/Lampshade2/Lampshade2_disp1_ASW.png
+Successfully saved images/Lampshade2/Lampshade2_disp5_ASW.png
+Done in 929.617 seconds.
+Successfully saved images/Lampshade2/Lampshade2_disp1_SGM.png
+Successfully saved images/Lampshade2/Lampshade2_disp5_SGM.png
+Done in 211.592 seconds.
+Midd1
+Successfully saved images/Midd1/Midd1_disp1_SSD.png
+Successfully saved images/Midd1/Midd1_disp5_SSD.png
+Done in 26.8794 seconds.
+Successfully saved images/Midd1/Midd1_disp1_NCC.png
+Successfully saved images/Midd1/Midd1_disp5_NCC.png
+Done in 65.9874 seconds.
+Successfully saved images/Midd1/Midd1_disp1_ASW.png
+Successfully saved images/Midd1/Midd1_disp5_ASW.png
+Done in 1002.16 seconds.
+Successfully saved images/Midd1/Midd1_disp1_SGM.png
+Successfully saved images/Midd1/Midd1_disp5_SGM.png
+Done in 222.872 seconds.
+Midd2
+Successfully saved images/Midd2/Midd2_disp1_SSD.png
+Successfully saved images/Midd2/Midd2_disp5_SSD.png
+Done in 25.3393 seconds.
+Successfully saved images/Midd2/Midd2_disp1_NCC.png
+Successfully saved images/Midd2/Midd2_disp5_NCC.png
+Done in 61.8901 seconds.
+Successfully saved images/Midd2/Midd2_disp1_ASW.png
+Successfully saved images/Midd2/Midd2_disp5_ASW.png
+Done in 972.79 seconds.
+Successfully saved images/Midd2/Midd2_disp1_SGM.png
+Successfully saved images/Midd2/Midd2_disp5_SGM.png
+Done in 218.219 seconds.
+Monopoly
+Successfully saved images/Monopoly/Monopoly_disp1_SSD.png
+Successfully saved images/Monopoly/Monopoly_disp5_SSD.png
+Done in 24.0687 seconds.
+Successfully saved images/Monopoly/Monopoly_disp1_NCC.png
+Successfully saved images/Monopoly/Monopoly_disp5_NCC.png
+Done in 59.0701 seconds.
+Successfully saved images/Monopoly/Monopoly_disp1_ASW.png
+Successfully saved images/Monopoly/Monopoly_disp5_ASW.png
+Done in 944.794 seconds.
+Successfully saved images/Monopoly/Monopoly_disp1_SGM.png
+Successfully saved images/Monopoly/Monopoly_disp5_SGM.png
+Done in 214.527 seconds.
+Plastic
+Successfully saved images/Plastic/Plastic_disp1_SSD.png
+Successfully saved images/Plastic/Plastic_disp5_SSD.png
+Done in 22.4593 seconds.
+Successfully saved images/Plastic/Plastic_disp1_NCC.png
+Successfully saved images/Plastic/Plastic_disp5_NCC.png
+Done in 56.2659 seconds.
+Successfully saved images/Plastic/Plastic_disp1_ASW.png
+Successfully saved images/Plastic/Plastic_disp5_ASW.png
+Done in 891.069 seconds.
+Successfully saved images/Plastic/Plastic_disp1_SGM.png
+Successfully saved images/Plastic/Plastic_disp5_SGM.png
+Done in 209.608 seconds.
+Rocks1
+Successfully saved images/Rocks1/Rocks1_disp1_SSD.png
+Successfully saved images/Rocks1/Rocks1_disp5_SSD.png
+Done in 22.6615 seconds.
+Successfully saved images/Rocks1/Rocks1_disp1_NCC.png
+Successfully saved images/Rocks1/Rocks1_disp5_NCC.png
+Done in 56.3942 seconds.
+Successfully saved images/Rocks1/Rocks1_disp1_ASW.png
+Successfully saved images/Rocks1/Rocks1_disp5_ASW.png
+Done in 899.997 seconds.
+Successfully saved images/Rocks1/Rocks1_disp1_SGM.png
+Successfully saved images/Rocks1/Rocks1_disp5_SGM.png
+Done in 202.758 seconds.
+Rocks2
+Successfully saved images/Rocks2/Rocks2_disp1_SSD.png
+Successfully saved images/Rocks2/Rocks2_disp5_SSD.png
+Done in 22.337 seconds.
+Successfully saved images/Rocks2/Rocks2_disp1_NCC.png
+Successfully saved images/Rocks2/Rocks2_disp5_NCC.png
+Done in 56.2439 seconds.
+Successfully saved images/Rocks2/Rocks2_disp1_ASW.png
+Successfully saved images/Rocks2/Rocks2_disp5_ASW.png
+Done in 901.826 seconds.
+Successfully saved images/Rocks2/Rocks2_disp1_SGM.png
+Successfully saved images/Rocks2/Rocks2_disp5_SGM.png
+Done in 204.778 seconds.
+Wood1
+Successfully saved images/Wood1/Wood1_disp1_SSD.png
+Successfully saved images/Wood1/Wood1_disp5_SSD.png
+Done in 24.6326 seconds.
+Successfully saved images/Wood1/Wood1_disp1_NCC.png
+Successfully saved images/Wood1/Wood1_disp5_NCC.png
+Done in 61.0894 seconds.
+Successfully saved images/Wood1/Wood1_disp1_ASW.png
+Successfully saved images/Wood1/Wood1_disp5_ASW.png
+Done in 973.105 seconds.
+Successfully saved images/Wood1/Wood1_disp1_SGM.png
+Successfully saved images/Wood1/Wood1_disp5_SGM.png
+Done in 230.44 seconds.
+Wood2
+Successfully saved images/Wood2/Wood2_disp1_SSD.png
+Successfully saved images/Wood2/Wood2_disp5_SSD.png
+Done in 23.4772 seconds.
+Successfully saved images/Wood2/Wood2_disp1_NCC.png
+Successfully saved images/Wood2/Wood2_disp5_NCC.png
+Done in 58.8632 seconds.
+Successfully saved images/Wood2/Wood2_disp1_ASW.png
+Successfully saved images/Wood2/Wood2_disp5_ASW.png
+Done in 923.017 seconds.
+Successfully saved images/Wood2/Wood2_disp1_SGM.png
+Successfully saved images/Wood2/Wood2_disp5_SGM.png
+Done in 215.136 seconds.
