@@ -16,20 +16,48 @@ SGMMatch::SGMMatch(cv::Mat _leftImg, cv::Mat _rightImg, unsigned short _pathNum,
 SGMMatch::~SGMMatch() {
     int rows = leftImg.rows;
     int cols = leftImg.cols;
-
+    // release everything new in the class in a right way, very important!!
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
-            delete[] smoothCosts[row][col];
-            delete[] pixelCosts[row][col];
+            if (smoothCosts[row][col] != NULL) {
+                delete[] smoothCosts[row][col]; smoothCosts[row][col] = NULL;
+            }
+            if (pixelCosts[row][col] != NULL) {
+                delete[] pixelCosts[row][col]; pixelCosts[row][col] = NULL;
+            }
         }
+        if (smoothCosts[row] != NULL) {
+            delete[] smoothCosts[row]; smoothCosts[row] = NULL;
+        }
+        if (pixelCosts[row] != NULL) {
+            delete[] pixelCosts[row]; pixelCosts[row] = NULL;
+        }
+    }
+    if (smoothCosts != NULL) {
+        delete[] smoothCosts; smoothCosts = NULL;
+    }
+    if (pixelCosts != NULL) {
+        delete[] pixelCosts; pixelCosts = NULL;
     }
 
     for (int p = 0; p < pathNum / 2; ++p) {
         for (int row = 0; row < rows; ++row) {
             for (int col = 0; col < cols; ++col) {
-                delete[] singlePathCosts[p][row][col];
+                if (singlePathCosts[p][row][col] != NULL) {
+                    delete[] singlePathCosts[p][row][col];
+                    singlePathCosts[p][row][col] = NULL;
+                }
+            }
+            if (singlePathCosts[p][row] != NULL) {
+                delete[] singlePathCosts[p][row]; singlePathCosts[p][row] = NULL;
             }
         }
+        if (singlePathCosts[p] != NULL) {
+            delete[] singlePathCosts[p]; singlePathCosts[p] = NULL;
+        }
+    }
+    if (singlePathCosts != NULL) {
+        delete[] singlePathCosts; singlePathCosts = NULL;
     }
 }
 
