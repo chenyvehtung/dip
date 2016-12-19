@@ -1,6 +1,6 @@
 # Digital Image Processing
 
-homework porject of the digital image processing course, SYSU, 2016
+homework porject of the digital image processing course, SYSU, 2015(English) and 2016(Chinese)
 
 Introdution and Solution are inside every subfolder.
 
