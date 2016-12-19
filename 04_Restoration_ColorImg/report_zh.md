@@ -1,6 +1,5 @@
 # HW4: Image Restoration and Color Image Processing
 
-
 ## 1 Exercises
 
 ### 1.1 Color Spaces
@@ -133,8 +132,33 @@ $$
 
 显然，中值滤波器得到的效果最好
 
-**2.3.5 Discuss how you implement all the above filtering operations**
+**2.3.5 Discuss how you implement all the above filtering operations**<br>
+程序中定义了一个类叫做MyFilter，创建MyFilter类对象需要指明该滤波器的类型以及滤波器的大小。类的filtering函数用来对图像块进行滤波，它接受一个图像块做为输入，返回对图像块操作后的结果。<br>
+剩下的工作就很简单了，执行滤波操作时，从左向右，从上到下依次取一定大小的图像块，输入到对应类型的MyFilter滤波器中，将返回的结果做为中心像素的值即可。<br>
+相应滤波器的操作严格按照书本公式实现即可，核心代码如下：
 
+```python
+def filtering(self, img_block):
+    res = None
+    if self.filter_type == "arithmetic":
+        res = np.mean(img_block)
+    elif self.filter_type == "harmonic":
+        res = img_block.size / np.sum(1.0 / (img_block + 1e-9))
+    elif self.filter_type == "contraharmonic":
+        img_block += 1e-9
+        res = np.sum(img_block ** (self.contra_q + 1)) / np.sum(img_block ** self.contra_q)
+    elif self.filter_type == "geometric":
+        res = np.prod(img_block) ** (1.0 / img_block.size)
+    elif self.filter_type == "median":
+        res = np.median(img_block)
+    elif self.filter_type == "max":
+        res = np.amax(img_block)
+    elif self.filter_type == "min":
+        res = np.amin(img_block)
+    else:
+        raise ValueError("Filter type is not supported yet.")
+    return res
+```
 
 ### 2.4 Histogram Equalization on Color Images
 
@@ -149,6 +173,8 @@ $$
 
 ![](src/images/72_color_equa_2.png)<br>
 
-**2.4.3 Perform histogram equalization on intensity channel**
+**2.4.3 Perform histogram equalization on intensity channel**<br>
+![](src/images/72_color_equa_0.png)<br>
 
-**2.4.4 Compare the above results**
+**2.4.4 Compare the above results**<br>
+2.4.3中得到的结果优于2.4.2的，而2.4.2得到的结果优于2.4.1的结果。

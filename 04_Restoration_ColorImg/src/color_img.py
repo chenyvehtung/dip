@@ -45,12 +45,24 @@ def gen_histogram(img):
 def color_equalize_hist(input_img, mode):
     """
     Do histogram equalization on RGB image
+    mode 0 is to equalize on intensity channel
     mode 1 is to equalize on channel seperately
     mode 2 is to equalize using a single average histogram
     """
+    bin_counts = []
+
+    if mode == 0:
+        import cv2
+        hsi_img = cv2.cvtColor(input_img, cv2.COLOR_RGB2HLS)
+        sub_imgs = hsi_img.transpose((2, 0, 1))
+        sub_imgs[1] = equalize_hist(sub_imgs[1])
+        # transpose back to [H, W, C]
+        sub_imgs = sub_imgs.transpose((1, 2, 0))
+        output_img = cv2.cvtColor(sub_imgs, cv2.COLOR_HLS2RGB)
+        return output_img
+
     sub_imgs = input_img.transpose((2, 0, 1))
     output_img = np.zeros_like(sub_imgs)
-    bin_counts = []
 
     if mode == 2:
         for idx in xrange(3):
@@ -72,7 +84,7 @@ def save_img(img, title):
 def main():
     img_filename = 'images/72.png'
     input_img = np.array(Image.open(img_filename))
-    for mode in [1 ,2]:
+    for mode in xrange(3):
         output_img = color_equalize_hist(input_img, mode)
         save_img(output_img, "images/72_color_equa_%d.png" % mode)
 
