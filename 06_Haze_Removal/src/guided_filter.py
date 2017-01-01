@@ -5,45 +5,52 @@ from PIL import Image
 
 
 def box_filter(img, ksize, func):
-    # box filter is edge preserving
-    result = img.copy()
+
+    rows, cols = img.shape
+    # pad the image using zero-padding
+    img_pad = np.zeros((rows + ksize, cols + ksize), dtype=np.float)
     half_ksize = ksize / 2
-    for row in xrange(img.shape[0] - ksize):
-        for col in xrange(img.shape[1] - ksize):
-            result[row + half_ksize][col + half_ksize] =
-                    func(img[row:row + ksize, col:col + ksize])
+    img_pad[half_ksize:rows + half_ksize, half_ksize:cols + half_ksize] = img
+
+    result = np.zeros_like(img)
+    for row in xrange(rows):
+        for col in xrange(cols):
+            result[row][col] = func(img_pad[row:row + ksize, col:col + ksize])
+
     return result
 
 
-def single_channel_gfilter(img, guide_img, ksize, epsilon):
+def single_channel_gfilter(img, guide_img, radius, epsilon):
 
+    ksize = 2 * radius + 1
     # p mean
     mean_img = box_filter(img, ksize, np.mean)
     # I mean and I variance
     mean_gimg = box_filter(guide_img, ksize, np.mean)
     var_gimg = box_filter(guide_img, ksize, np.var)
     # mean Ip
-    mean_ip = box_filter(guide_img.mul(img), ksize, np.mean)
+    mean_ip = box_filter(guide_img * img, ksize, np.mean)
     # a and b
     a = (mean_ip - mean_gimg * mean_img) / (var_gimg + epsilon)  # Equation (5) in paper
-    b = mean_img - ak * mean_gimg  # Equation (6) in paper
+    b = mean_img - a * mean_gimg  # Equation (6) in paper
     # a bar and b bar
     mean_a = box_filter(a, ksize, np.mean)
     mean_b = box_filter(b, ksize, np.mean)
     # get the result img
-    tmp_result_img = mean_a * guide_img + mean_b  # Equation (7) in paper
-    # filter the img by using edge preserve method
-    result_img = img.copy()
-    half_ksize = ksize / 2
-    rows, cols = img.shape
-    tmp_result_img =
-    result_img[half_ksize:rows-half_ksize, half_ksize:cols-half_ksize] =
-        tmp_result_img[half_ksize:rows-half_ksize, half_ksize:cols-half_ksize]
+    result_img = mean_a * guide_img + mean_b  # Equation (7) in paper
 
     return result_img
 
 def main():
-    pass
+    img_filename = 'images/img_smoothing/cat.bmp'
+    im = Image.open(img_filename).convert('L')
+    img = np.array(im).astype(np.float)
+    print img
+    output_img = single_channel_gfilter(img, img, 8, 0.4**2)
+    output_img = np.clip(output_img, 0, 255).astype(np.uint8)
+
+    output_img = Image.fromarray(output_img, 'L')
+    output_img.show()
 
 
 if __name__ == "__main__":
